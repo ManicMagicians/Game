@@ -111,7 +111,7 @@ void AGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 {
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
-
+		
 	// Bind jump events
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
@@ -138,6 +138,29 @@ void AGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 }
 
 void AGameCharacter::OnFire()
+{
+	ServerFire();
+
+
+	// try and play the sound if specified
+	if (FireSound != NULL)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	}
+
+	// try and play a firing animation if specified
+	if (FireAnimation != NULL)
+	{
+		// Get the animation object for the arms mesh
+		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
+		if (AnimInstance != NULL)
+		{
+			AnimInstance->Montage_Play(FireAnimation, 1.f);
+		}
+	}
+}
+
+void AGameCharacter::ServerFire_Implementation()
 {
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
@@ -166,23 +189,12 @@ void AGameCharacter::OnFire()
 			}
 		}
 	}
-
-	// try and play a firing animation if specified
-	if (FireAnimation != NULL)
-	{
-		// Get the animation object for the arms mesh
-		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
-		if (AnimInstance != NULL)
-		{
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
-		}
-	}
 }
-/*
-bool AGameCharacter::OnFire_Validate()
+
+bool AGameCharacter::ServerFire_Validate()
 {
 	return true;
-}*/
+}
 
 void AGameCharacter::OnResetVR()
 {
