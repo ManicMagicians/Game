@@ -179,6 +179,11 @@ void AGameCharacter::OnFire_Implementation()
 	}
 }
 
+bool AGameCharacter::OnFire_Validate()
+{
+	return true;
+}
+
 void AGameCharacter::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();

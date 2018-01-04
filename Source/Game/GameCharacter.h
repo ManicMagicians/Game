@@ -83,7 +83,7 @@ public:
 protected:
 	
 	/** Fires a projectile. */
-	UFUNCTION(NetMulticast, Unreliable)
+	UFUNCTION(Server, Reliable, WithValidation)
 	void OnFire();
 
 	/** Resets HMD orientation and position in VR. */
