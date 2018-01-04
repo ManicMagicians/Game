@@ -167,12 +167,6 @@ void AGameCharacter::OnFire()
 		}
 	}
 
-	// try and play the sound if specified
-	if (FireSound != NULL)
-	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-	}
-
 	// try and play a firing animation if specified
 	if (FireAnimation != NULL)
 	{
