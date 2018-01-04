@@ -137,7 +137,7 @@ void AGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AGameCharacter::LookUpAtRate);
 }
 
-void AGameCharacter::OnFire_Implementation()
+void AGameCharacter::OnFire()
 {
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
@@ -178,11 +178,11 @@ void AGameCharacter::OnFire_Implementation()
 		}
 	}
 }
-
+/*
 bool AGameCharacter::OnFire_Validate()
 {
 	return true;
-}
+}*/
 
 void AGameCharacter::OnResetVR()
 {
